@@ -1,8 +1,16 @@
 import pytest
 from app.chatbot_core import APISChatbot
+from app.config import DEFAULT_MODEL_NAME
+
+def test_bot_initialization():
+    """Testuje, czy bot poprawnie się inicjalizuje i ładuje prompt systemowy."""
+    bot = APISChatbot(model_name=DEFAULT_MODEL_NAME)
+    assert len(bot.history) == 1
+    assert bot.history[0]["role"] == "system"
 
 def test_sliding_window_context_management():
-    # Inicjalizujemy bota z małym limitem kontekstu (np. 3 wiadomości łącznie z systemowym)
+    """Testuje mechanizm ucinania historii (Wymóg 4.0)."""
+    # Inicjalizujemy bota z małym limitem kontekstu (3 wiadomości łącznie z systemowym)
     bot = APISChatbot(max_context_messages=3)
     
     # Symulujemy długą rozmowę
@@ -14,7 +22,7 @@ def test_sliding_window_context_management():
     # Odpalamy mechanizm ucinania
     bot._manage_context()
     
-    # Sprawdzenia (Aserty)
-    assert len(bot.history) == 3, "Historia powinna mieć dokładnie 3 wiadomości"
-    assert bot.history[0]["role"] == "system", "Prompt systemowy musi zawsze zostać na pierwszym miejscu!"
-    assert bot.history[-1]["content"] == "Odpowiedź 2", "Ostatnia wiadomość musi być zachowana"
+    # Sprawdzenia
+    assert len(bot.history) == 3, "Historia powinna zostać ucięta do 3 wiadomości"
+    assert bot.history[0]["role"] == "system", "Prompt systemowy musi zawsze zostać!"
+    assert bot.history[-1]["content"] == "Odpowiedź 2", "Najnowsza wiadomość musi być na końcu"
