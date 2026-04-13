@@ -1,6 +1,7 @@
 import ollama
 import logging
 import os
+from app.config import DEFAULT_MODEL_NAME, MAX_CONTEXT_MESSAGES
 
 os.makedirs("logs", exist_ok=True)
 
@@ -13,7 +14,7 @@ logging.basicConfig(
 )
 
 class APISChatbot:
-    def __init__(self, model_name: str = "llama3", max_context_messages: int = 10):
+    def __init__(self, model_name: str = DEFAULT_MODEL_NAME, max_context_messages: int = MAX_CONTEXT_MESSAGES):
         """
         Inicjalizacja chatbota.
         :param model_name: Nazwa modelu (domyślnie lokalna Llama 3)

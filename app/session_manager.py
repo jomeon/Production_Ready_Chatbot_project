@@ -1,5 +1,7 @@
 from app.chatbot_core import APISChatbot
 from typing import Dict
+from app.config import DEFAULT_MODEL_NAME
+
 
 class SessionManager:
     def __init__(self):
@@ -11,7 +13,7 @@ class SessionManager:
         Jeśli sesja nie istnieje, tworzy nową, izolowaną historię.
         """
         if session_id not in self.sessions:
-            self.sessions[session_id] = APISChatbot(model_name="llama3")
+            self.sessions[session_id] = APISChatbot(model_name=DEFAULT_MODEL_NAME)
         
         return self.sessions[session_id]
 

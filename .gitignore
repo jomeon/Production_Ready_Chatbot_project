@@ -13,3 +13,6 @@ logs/
 
 # Narzędzia testowe
 .pytest_cache/
+
+
+test_local.py
