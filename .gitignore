@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Środowiska wirtualne
+venv/
+env/
+.env
+
+# Logi (nie commitujemy logów na GitHuba!)
+logs/
+
+# Narzędzia testowe
+.pytest_cache/
